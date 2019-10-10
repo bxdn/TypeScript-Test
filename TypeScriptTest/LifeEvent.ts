@@ -7,3 +7,4 @@ enum LifeEvent{
     Procration,
     Death
 }
+export{ LifeEvent }

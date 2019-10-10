@@ -1,3 +1,4 @@
-interface IPerson{
-    ageOneYear() : void
+interface IPerson {
+    live(): void
 }
+export { IPerson }

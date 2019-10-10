@@ -1,4 +1,11 @@
+import { IPerson } from "./IPerson";
+
+import { LERange } from "./LERange";
+
+import { LifeEvent } from "./LifeEvent";
+
 class Person implements IPerson {
+
     private static readonly BOY = "boy"
     private static readonly GIRL = "girl"
     private static readonly ranges: LERange[] = [
@@ -9,10 +16,14 @@ class Person implements IPerson {
         new LERange(LifeEvent.Procration, 15, 45, 6),
         new LERange(LifeEvent.Death, 0, 100)
     ];
-    private firstName: String
-    private lastName: String
+
+    private readonly firstName: String
+    private readonly lastName: String
+    private readonly lifeEventMap: Map<number, LifeEvent[]> = new Map()
+
     private age: number
-    private lifeEventMap: Map<number, LifeEvent[]>
+    private life: number
+
     constructor(firstName: String, lastName: String) {
         this.firstName = firstName
         this.lastName = lastName
@@ -20,13 +31,23 @@ class Person implements IPerson {
         this.haveLifeEvent(LifeEvent.Birth)
         this.setUpLifeEventMap()
     }
-    ageOneYear(): void {
+
+    live(): void {
+        const _this = this
+        this.life = setInterval(function(){
+            _this.ageOneYear()
+        }, 1000)
+    }
+    private ageOneYear(): void {
         this.age++
+        console.log(`${this.firstName} ${this.lastName} age: ${this.age}`)
         this.handleLifeEvents()
     }
     private handleLifeEvents(): void {
-        for (let lifeEvent of this.lifeEventMap.get(this.age)) {
-            this.haveLifeEvent(lifeEvent)
+        if (this.lifeEventMap.get(this.age)){
+            for (let lifeEvent of this.lifeEventMap.get(this.age)) {
+                this.haveLifeEvent(lifeEvent)
+            }
         }
     }
     private haveLifeEvent(event: LifeEvent): void {
@@ -56,6 +77,7 @@ class Person implements IPerson {
                 break
             }
             case LifeEvent.Death: {
+                clearInterval(this.life)
                 console.log(`${this.firstName} ${this.lastName} has died.`)
                 break
             }
@@ -64,14 +86,20 @@ class Person implements IPerson {
     private static pickBoyOrGirl(): String {
         return (Math.random() >= .5 ? Person.BOY : Person.GIRL)
     }
-    setUpLifeEventMap(): void {
+    private setUpLifeEventMap(): void {
         for (let range of Person.ranges) {
             const occurences = range.maxOccurences ? Math.floor(Math.random() * range.maxOccurences) : 1
-            for(let i = 0; i < occurences; i++){
+            for (let i = 0; i < occurences; i++) {
                 const delta = Math.floor(Math.random() * (range.max - range.min))
                 const year = range.min + delta
-                this.lifeEventMap.get(year).push(range.lifeEvent)
+                if(this.lifeEventMap.get(year)){
+                    this.lifeEventMap.get(year).push(range.lifeEvent)
+                }
+                else{
+                    this.lifeEventMap.set(year, [range.lifeEvent])
+                }
             }
         }
     }
 }
+export { Person }
