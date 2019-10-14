@@ -1,0 +1,74 @@
+.fade-up{
+    animation-name: fade-up;
+    animation-duration: 1s;
+    animation-fill-mode: forwards
+}
+
+.fade-out{
+    animation-name: fade-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards
+}
+
+.fade-up-short{
+    animation-name: fade-up-short;
+    animation-duration: .25s;
+    animation-fill-mode: forwards
+}
+
+.fade-out-short{
+    animation-name: fade-out-short;
+    animation-duration: .25s;
+    animation-fill-mode: forwards
+}
+
+@keyframes fade-out{
+    from{
+        margin-top:10px;
+        margin-bottom:0px;
+        opacity:1
+    }
+    to{
+        margin-top:-30px;
+        margin-bottom:40px;
+        opacity:0
+    }
+}
+
+@keyframes fade-up{
+    from{
+        margin-top:50px;
+        margin-bottom:-40px;
+        opacity:0
+    }
+    to{
+        margin-top:10px;
+        margin-bottom:0px;
+        opacity:1
+    }
+}
+@keyframes fade-out-short{
+    from{
+        margin-top:0px;
+        margin-bottom:0px;
+        opacity:1
+    }
+    to{
+        margin-top:-10px;
+        margin-bottom:10px;
+        opacity:0
+    }
+}
+
+@keyframes fade-up-short{
+    from{
+        margin-top:10px;
+        margin-bottom:-10px;
+        opacity:0
+    }
+    to{
+        margin-top:0px;
+        margin-bottom:0px;
+        opacity:1
+    }
+}

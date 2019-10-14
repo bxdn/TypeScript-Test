@@ -1,4 +1,4 @@
-import { LifeEvent } from "./LifeEvent";
+import { LifeEvent } from "./LifeEvent.js";
 
 class LERange {
     constructor(readonly lifeEvent: LifeEvent,

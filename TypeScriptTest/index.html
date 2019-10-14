@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" style="width: 100%; height: 100%; display:flex; justify-content: center; align-items: center;">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="module" src="index.js"></script>
+    <title>Life Liver</title>
+</head>
+
+<body
+    style="margin: 0; font-size: 1.5vw; color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; display:flex; justify-content: center; align-items: center; width: 90%; height: 90%; flex-direction: column">
+    <div id="parent" style="display: flex; flex-direction: column; min-height: 0">
+        <h2 id="en" class="fade-up" style="font-size: 4vw; margin: 10px 0px 0px 0px">Enter Name</h2>
+        <br>
+        <span id="fn" style="opacity:0; margin: 10px 0px 0px 0px">First Name:</span>
+        <input placeholder="John" style="font-size: 1.5vw; opacity:0; margin: 10px 0px 0px 0px" id="fni" type="text"
+            name="firstname">
+        <span id="ln" style="opacity:0; margin: 10px 0px 0px 0px; font-size: 1.5vw">Last Name:</span>
+        <input placeholder="Smith" style="font-size: 1.5vw; opacity:0; margin: 10px 0px 0px 0px" id="lni" type="text"
+            name="lastname">
+    </div>
+    <div id="sim" style="width:100%; height: 100%; display: none; align-items: flex-end;">
+        <div style="display:flex; width: 100%; font-size: 2vw; height: 50%; align-items: flex-start;">
+            <div id="ageContainer" style="display: flex; flex-direction:row; width:50%; justify-content: center">
+                <span>Age:</span>
+                <div style="width: 10px;"></div>
+                <span id="age" style="width: 20px">0</span>
+            </div>
+            <div id="log" style="display: flex; flex-direction: column; width: 50%">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

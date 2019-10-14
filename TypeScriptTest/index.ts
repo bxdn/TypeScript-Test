@@ -1,3 +1,5 @@
-import { Person } from "./Person";
-const me = new Person("Kailey", "Yeakley")
-me.live()
+import { SimulationEngine } from "./SimulationEngine.js"
+
+window.addEventListener("load", function () {
+    SimulationEngine.getInstance().run()
+})

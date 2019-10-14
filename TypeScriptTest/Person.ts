@@ -1,8 +1,8 @@
-import { IPerson } from "./IPerson";
+import { IPerson } from "./IPerson.js";
 
-import { LERange } from "./LERange";
+import { LERange } from "./LERange.js";
 
-import { LifeEvent } from "./LifeEvent";
+import { LifeEvent } from "./LifeEvent.js";
 
 class Person implements IPerson {
 
@@ -33,14 +33,21 @@ class Person implements IPerson {
     }
 
     live(): void {
-        const _this = this
+        const that = this
         this.life = setInterval(function(){
-            _this.ageOneYear()
+            that.ageOneYear()
         }, 1000)
     }
     private ageOneYear(): void {
         this.age++
-        console.log(`${this.firstName} ${this.lastName} age: ${this.age}`)
+        const ageSpan = document.getElementById("age")
+        ageSpan.classList.add("fade-out-short")
+        const that = this
+        setTimeout(function(){
+            ageSpan.innerHTML = String(that.age)
+            ageSpan.classList.remove("fade-out-short")
+            ageSpan.classList.add("fade-up-short")
+        }, 250)
         this.handleLifeEvents()
     }
     private handleLifeEvents(): void {
@@ -53,32 +60,32 @@ class Person implements IPerson {
     private haveLifeEvent(event: LifeEvent): void {
         switch (event) {
             case LifeEvent.Birth: {
-                console.log(`${this.firstName} ${this.lastName} has been born!`)
+                Person.log(`${this.firstName} ${this.lastName} has been born!`)
                 break
             }
             case LifeEvent.FirstDayOfSchool: {
-                console.log(`${this.firstName} ${this.lastName} had their first day of school!`)
+                Person.log(`${this.firstName} ${this.lastName} had their first day of school!`)
                 break
             }
             case LifeEvent.Graduation: {
-                console.log(`${this.firstName} ${this.lastName} graduated!`)
+                Person.log(`${this.firstName} ${this.lastName} graduated!`)
                 break
             }
             case LifeEvent.Employment: {
-                console.log(`${this.firstName} ${this.lastName} landed a job!`)
+                Person.log(`${this.firstName} ${this.lastName} landed a job!`)
                 break
             }
             case LifeEvent.Marriage: {
-                console.log(`${this.firstName} ${this.lastName} got married!`)
+                Person.log(`${this.firstName} ${this.lastName} got married!`)
                 break
             }
             case LifeEvent.Procration: {
-                console.log(`${this.firstName} ${this.lastName} had a beautiful baby ${Person.pickBoyOrGirl()}!`)
+                Person.log(`${this.firstName} ${this.lastName} had a beautiful baby ${Person.pickBoyOrGirl()}!`)
                 break
             }
             case LifeEvent.Death: {
                 clearInterval(this.life)
-                console.log(`${this.firstName} ${this.lastName} has died.`)
+                Person.log(`${this.firstName} ${this.lastName} has died.`)
                 break
             }
         }
@@ -100,6 +107,30 @@ class Person implements IPerson {
                 }
             }
         }
+    }
+    private static log(str: string){
+        const log = document.getElementById("log")
+        const div = document.createElement("div")
+        div.style.display = "flex"
+        div.innerHTML = str
+        log.appendChild(div)
+        div.classList.add("fade-up-short")
+        setTimeout(function(){
+            div.classList.remove("fade-up-short")
+            div.classList.add("fade-out-short")
+            setTimeout(function(){
+                div.classList.remove("fade-out-short")
+                div.style.opacity = "0"
+                div.animate([
+                    {height: `${div.clientHeight}px`},
+                    {height: "0px"}
+                ],{
+                    duration: 250,
+                    fill: "forwards",
+                    easing: "ease-in-out"
+                })
+            },250)
+        },5000)
     }
 }
 export { Person }
